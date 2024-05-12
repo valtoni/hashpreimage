@@ -1,4 +1,4 @@
-package org.github.valtoni;
+package com.github.valtoni;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

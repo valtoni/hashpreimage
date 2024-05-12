@@ -1,4 +1,4 @@
-package org.github.valtoni;
+package com.github.valtoni;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.OperatingSystemMXBean;
@@ -9,7 +9,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static java.lang.Thread.sleep;
-import static org.github.valtoni.Collider.COLLISION_FOUND;
+import static com.github.valtoni.Collider.COLLISION_FOUND;
 
 public class DynamicThreadAdjuster implements Runnable {
 

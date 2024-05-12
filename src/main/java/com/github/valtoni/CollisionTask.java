@@ -1,9 +1,6 @@
-package org.github.valtoni;
+package com.github.valtoni;
 
 import java.lang.management.ManagementFactory;
-
-import static org.github.valtoni.Collider.COLLISION_FOUND;
-import static org.github.valtoni.Collider.TOTAL_TESTS;
 
 public class CollisionTask implements Runnable {
 
@@ -31,13 +28,13 @@ public class CollisionTask implements Runnable {
             }
             collided = preimage.equals(image);
             if (collided) {
-                COLLISION_FOUND.set(true);
+                Collider.COLLISION_FOUND.set(true);
             }
             if (tests % 1000000 == 0) {
-                TOTAL_TESTS.set(TOTAL_TESTS.get() + tests);
-                System.out.println("PID: " + pid + ", thread: " + Thread.currentThread().getName() + ", tests: " + tests + ", total tests: " + TOTAL_TESTS.get() + ", collision found: " + COLLISION_FOUND.get());
+                Collider.TOTAL_TESTS.set(Collider.TOTAL_TESTS.get() + tests);
+                System.out.println("PID: " + pid + ", thread: " + Thread.currentThread().getName() + ", tests: " + tests + ", total tests: " + Collider.TOTAL_TESTS.get() + ", collision found: " + Collider.COLLISION_FOUND.get());
             }
-        } while (!COLLISION_FOUND.get());
+        } while (!Collider.COLLISION_FOUND.get());
         if (collided) {
             System.out.println("Collision found! " + preimage.hexDigest() + " == " + image.hexDigest());
             System.out.println("Input1: " + preimage.hexInput());
