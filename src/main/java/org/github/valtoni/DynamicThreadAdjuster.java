@@ -8,6 +8,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static java.lang.Thread.sleep;
 import static org.github.valtoni.Collider.COLLISION_FOUND;
 
 public class DynamicThreadAdjuster implements Runnable {
@@ -37,7 +38,7 @@ public class DynamicThreadAdjuster implements Runnable {
             } else if (processors < tasks.size()) {
                 // If the number of threads is decreased, cancel the last added tasks
                 while (processors < tasks.size()) {
-                    tasks.remove(tasks.size() - 1).cancel(true);
+                    tasks.removeLast().cancel(true);
                 }
             }
         }
@@ -62,7 +63,8 @@ public class DynamicThreadAdjuster implements Runnable {
                     System.out.println("Increasing threads to " + processors + " due to low CPU load (" + cpuLoad*100 + "%)");
                 }
                 try {
-                    Thread.sleep(1000); // Adjust the sleep time as needed
+                    //noinspection BusyWait
+                    sleep(1000); // Adjust the sleep time as needed
                 } catch (InterruptedException e) {
                     break;
                 }

@@ -7,8 +7,7 @@ import java.util.Random;
 
 public class SHA1Unit {
 
-        private Random random = new Random();
-        private MessageDigest sha1;
+    private MessageDigest sha1;
         private final byte[] input;
         private final byte[] digest;
 
@@ -19,16 +18,9 @@ public class SHA1Unit {
                 throw new RuntimeException(e);
             }
             this.input = sha1.digest(new byte[64]);
+            Random random = new Random();
             random.nextBytes(input);
             this.digest = sha1.digest(input);
-        }
-
-        public byte[] getInput() {
-            return input;
-        }
-
-        public byte[] getDigest() {
-            return digest;
         }
 
         private String bytesToHex(byte[] bytes) {

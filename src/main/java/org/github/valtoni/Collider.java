@@ -13,12 +13,13 @@ public class Collider {
     public static final AtomicLong TOTAL_TESTS = new AtomicLong(0);
 
     private static void SHA1ThreadedCollisionTest(int threads) {
-        ExecutorService executor = Executors.newFixedThreadPool(threads);
-        SHA1Unit preimage = new SHA1Unit();
-        for (int i = 0; i < threads; i++) {
-            executor.submit(new CollisionTask(preimage));
+        try (ExecutorService executor = Executors.newFixedThreadPool(threads)) {
+            SHA1Unit preimage = new SHA1Unit();
+            for (int i = 0; i < threads; i++) {
+                executor.submit(new CollisionTask(preimage));
+            }
+            executor.shutdown();
         }
-        executor.shutdown();
     }
 
     private static void SHA1DynamicThreadedCollisionTest(double targetCpuLoad, double adjustmentThreshold) {
@@ -30,7 +31,7 @@ public class Collider {
         // Use executorRef.get() to get the current ExecutorService
     }
 
-    public static void main(String[] args) throws NoSuchAlgorithmException {
+    public static void main(String[] args) {
         //SHA1ThreadedCollisionTest(Runtime.getRuntime().availableProcessors() * 2);
         SHA1DynamicThreadedCollisionTest(95, 10);
     }
