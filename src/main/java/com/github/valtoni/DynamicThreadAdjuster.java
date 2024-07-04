@@ -1,7 +1,7 @@
 package com.github.valtoni;
 
 import java.lang.management.ManagementFactory;
-import java.lang.management.OperatingSystemMXBean;
+import com.sun.management.OperatingSystemMXBean;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -50,7 +50,7 @@ public class DynamicThreadAdjuster implements Runnable {
             adjustExecutorService(processors);
             double thresholdHalf = adjustmentThreshold / 2;
             while (!COLLISION_FOUND.get()) {
-                double cpuLoad = osBean.getSystemLoadAverage();
+                double cpuLoad = osBean.getCpuLoad();
                 if ((cpuLoad > targetCpuLoad - thresholdHalf) && processors > 1) {
                     // CPU load is too high, decrease the number of threads
                     processors--;
